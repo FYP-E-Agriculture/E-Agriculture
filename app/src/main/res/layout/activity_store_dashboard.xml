@@ -1,0 +1,276 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green_light">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <GridLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:alignmentMode="alignMargins"
+                    android:columnCount="2"
+                    android:columnOrderPreserved="false"
+                    android:rowCount="4">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/productCard"
+                        android:layout_width="155dp"
+                        android:layout_height="155dp"
+                        android:layout_margin="10dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:background="@color/green_dark"
+                            android:gravity="center"
+                            android:orientation="vertical" />
+
+                        <ImageView
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="15dp"
+                            android:src="@drawable/ic_products" />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="40dp"
+                            android:layout_marginBottom="5dp"
+
+                            android:gravity="center"
+                            android:text="Products"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/customerCard"
+                        android:layout_width="155dp"
+                        android:layout_height="155dp"
+                        android:layout_margin="10dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:background="@color/green_dark"
+                            android:gravity="center"
+                            android:orientation="vertical" />
+
+                        <ImageView
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="15dp"
+                            android:src="@drawable/ic_customers" />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="40dp"
+                            android:layout_marginBottom="5dp"
+
+                            android:gravity="center"
+                            android:text="Customers"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/ordersCard"
+                        android:layout_width="155dp"
+                        android:layout_height="155dp"
+                        android:layout_margin="10dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:background="@color/green_dark"
+                            android:gravity="center"
+                            android:orientation="vertical" />
+
+                        <ImageView
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="15dp"
+                            android:src="@drawable/ic_orders" />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="40dp"
+                            android:layout_marginBottom="5dp"
+
+                            android:gravity="center"
+                            android:text="Orders"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/salesReportCard"
+                        android:layout_width="155dp"
+                        android:layout_height="155dp"
+                        android:layout_margin="10dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:background="@color/green_dark"
+                            android:gravity="center"
+                            android:orientation="vertical" />
+
+                        <ImageView
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="15dp"
+                            android:src="@drawable/ic_report" />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="40dp"
+                            android:layout_marginBottom="5dp"
+
+                            android:gravity="center"
+                            android:text="Sales Report"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <!--                    <androidx.cardview.widget.CardView-->
+                    <!--                        android:id="@+id/settingsCard"-->
+                    <!--                        android:layout_width="155dp"-->
+                    <!--                        android:layout_height="155dp"-->
+                    <!--                        android:layout_margin="10dp"-->
+                    <!--                        app:cardCornerRadius="12dp"-->
+                    <!--                        app:cardElevation="5dp">-->
+
+                    <!--                        <LinearLayout-->
+                    <!--                            android:layout_width="match_parent"-->
+                    <!--                            android:layout_height="match_parent"-->
+                    <!--                            android:layout_gravity="center"-->
+                    <!--                            android:background="@color/green_dark"-->
+                    <!--                            android:gravity="center"-->
+                    <!--                            android:orientation="vertical" />-->
+
+                    <!--                        <ImageView-->
+                    <!--                            android:layout_width="80dp"-->
+                    <!--                            android:layout_height="80dp"-->
+                    <!--                            android:layout_gravity="center"-->
+                    <!--                            android:layout_marginBottom="15dp"-->
+                    <!--                            android:src="@drawable/ic_products" />-->
+
+
+                    <!--                        <TextView-->
+                    <!--                            android:layout_width="wrap_content"-->
+                    <!--                            android:layout_height="wrap_content"-->
+                    <!--                            android:layout_gravity="center"-->
+                    <!--                            android:layout_marginTop="40dp"-->
+                    <!--                            android:layout_marginBottom="5dp"-->
+
+                    <!--                            android:gravity="center"-->
+                    <!--                            android:text="Settings"-->
+                    <!--                            android:textColor="@color/white"-->
+                    <!--                            android:textSize="16dp" />-->
+
+
+                    <!--                    </androidx.cardview.widget.CardView>-->
+
+                    <!--                    <androidx.cardview.widget.CardView-->
+                    <!--                        android:id="@+id/logoutCard"-->
+                    <!--                        android:layout_width="155dp"-->
+                    <!--                        android:layout_height="155dp"-->
+                    <!--                        android:layout_margin="10dp"-->
+                    <!--                        app:cardCornerRadius="12dp"-->
+                    <!--                        app:cardElevation="5dp">-->
+
+                    <!--                        <LinearLayout-->
+                    <!--                            android:layout_width="match_parent"-->
+                    <!--                            android:layout_height="match_parent"-->
+                    <!--                            android:layout_gravity="center"-->
+                    <!--                            android:background="@color/green_dark"-->
+                    <!--                            android:gravity="center"-->
+                    <!--                            android:orientation="vertical" />-->
+
+                    <!--                        <ImageView-->
+                    <!--                            android:layout_width="80dp"-->
+                    <!--                            android:layout_height="80dp"-->
+                    <!--                            android:layout_gravity="center"-->
+                    <!--                            android:layout_marginBottom="15dp"-->
+                    <!--                            android:src="@drawable/ic_products" />-->
+
+
+                    <!--                        <TextView-->
+                    <!--                            android:layout_width="wrap_content"-->
+                    <!--                            android:layout_height="wrap_content"-->
+                    <!--                            android:layout_gravity="center"-->
+                    <!--                            android:layout_marginTop="40dp"-->
+                    <!--                            android:layout_marginBottom="5dp"-->
+
+                    <!--                            android:gravity="center"-->
+                    <!--                            android:text="Logout"-->
+                    <!--                            android:textColor="@color/white"-->
+                    <!--                            android:textSize="16dp" />-->
+
+
+                    <!--                    </androidx.cardview.widget.CardView>-->
+
+
+                </GridLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+</ScrollView>
+

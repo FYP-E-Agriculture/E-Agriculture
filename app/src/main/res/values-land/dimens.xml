@@ -1,0 +1,4 @@
+<resources>
+
+    <dimen name="edit_text_radius">10dp</dimen>
+</resources>

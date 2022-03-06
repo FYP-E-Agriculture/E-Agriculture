@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.fypproject_2022.e_agriculture_app">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.EAgriculture">
+        <activity
+            android:name=".Vendor.Orders.OrderDetailVendor"
+            android:exported="true" />
+        <activity
+            android:name=".Vendor.Orders.ViewOrdersVendor"
+            android:exported="true"
+            android:parentActivityName=".Vendor.Dashboard.DashboardVendor" />
+        <activity
+            android:name=".Customer.Orders.OrderDetail"
+            android:exported="true"
+            android:parentActivityName=".Customer.Orders.ViewOrdersActivity" />
+        <activity
+            android:name=".Customer.Orders.ViewOrdersActivity"
+            android:exported="true"
+            android:parentActivityName=".Customer.Dashboard.Dashboard" />
+        <activity
+            android:name=".Admin.VendorManagment.VendorMgmtActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Admin.CustomerManagment.CustomerMgmtActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Vendor.Stores.RegisterStore"
+            android:exported="true" />
+        <activity
+            android:name=".Customer.Products.ComparePrices"
+            android:exported="true" />
+        <activity
+            android:name=".Vendor.Stores.StoreDashboard"
+            android:exported="true"
+            android:parentActivityName=".Vendor.Dashboard.DashboardVendor" />
+        <activity
+            android:name=".Customer.Products.AddReview"
+            android:exported="true" />
+        <activity
+            android:name=".Admin.Dashboard.DashboardAdmin"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".Customer.Cart.CartActivity"
+            android:exported="true"
+            android:parentActivityName=".Customer.Dashboard.Dashboard" />
+        <activity
+            android:name=".Customer.Products.ProductDetail"
+            android:exported="true" />
+        <activity
+            android:name=".Customer.Products.ViewProducts"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".Vendor.Products.EditProduct"
+            android:exported="true" />
+        <activity
+            android:name=".Vendor.Products.ProductDetailVendor"
+            android:exported="true" />
+        <activity
+            android:name=".Vendor.Products.ProductManagementActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Vendor.Products.AddProduct"
+            android:exported="true" />
+        <activity
+            android:name=".Vendor.Common.RegisterVendor"
+            android:exported="true" />
+        <activity
+            android:name=".Vendor.Dashboard.DashboardVendor"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+            android:name=".Customer.Dashboard.Dashboard"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+            android:name=".Common.SelectUserType"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Customer.Common.Register"
+            android:exported="true" />
+        <activity
+            android:name=".Common.Login"
+            android:exported="true" />
+        <activity
+            android:name=".Common.SplashScreen"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
+    </application>
+
+</manifest>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="teal_200">#213024</color>
+    <color name="teal_700">#213024</color>
+
+    <color name="green_dark">#213024</color>
+    <color name="colorSecondary">#213024</color>
+    <color name="green_light">#edfff3</color>
+    <color name="dark_grey">#6F847C</color>
+    <color name="green_greyish">#748368</color>
+
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="red_dark">#730F07</color>
+</resources>

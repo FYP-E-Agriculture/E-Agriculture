@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/fertilizer"
+        android:title="@string/category_fertilizer"/>
+    <item
+        android:id="@+id/insect_killer"
+        android:title="@string/category_insect_killer"/>
+</menu>

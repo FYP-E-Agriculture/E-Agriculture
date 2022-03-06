@@ -1,0 +1,120 @@
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green_light">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:navigationIcon="@drawable/ic_menu"
+
+                app:title="Hello Vendor"
+                android:background="@color/green_dark"
+                app:subtitleTextColor="#0A0A0A"
+                app:titleTextColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/my_stores_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="15dp"
+            android:text="My Stores"
+            android:textStyle="bold"
+            android:textColor="@color/green_dark"
+            android:textSize="20sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+
+            android:id="@+id/stores_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/my_stores_title"
+            android:layout_marginHorizontal="10dp" />
+        <com.github.ybq.android.spinkit.SpinKitView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/progress"
+            style="@style/SpinKitView.Large.FadingCircle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_centerInParent="true"
+            android:visibility="invisible"
+            app:SpinKit_Color="@color/green_dark" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="end|bottom"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/green_greyish"
+            android:contentDescription="Add New"
+            android:src="@drawable/ic_add" />
+
+        <RelativeLayout
+            android:id="@+id/add_rl"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:text="No Stores Found!"
+                android:textColor="@color/green_dark"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/add_btn"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_below="@+id/title"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ic_add" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/add_btn"
+                android:layout_centerHorizontal="true"
+                android:text="Tap to Request a Store"
+                android:textColor="@color/green_dark"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/white"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/header_layout"
+        app:itemIconTint="@color/green_dark"
+        app:itemTextColor="@color/green_dark"
+        app:menu="@menu/vendor_header_menu" />
+
+
+</androidx.drawerlayout.widget.DrawerLayout>

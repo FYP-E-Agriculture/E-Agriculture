@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Customer.Products.ComparePrices"
+    android:padding="10dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/price_filter_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        android:background="@color/green_dark"
+        android:layout_marginHorizontal="10dp"
+        android:layout_alignParentRight="true"
+        android:onClick="showPriceOption">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_double_arrow"
+            android:background="@color/green_dark"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="5dp"
+            android:layout_alignParentRight="true"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/price_filter_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:drawableRight="@drawable/ic_filter"
+        android:drawablePadding="10dp"
+        android:text="Price Filter"
+        android:textSize="20dp" />
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/progress"
+        style="@style/SpinKitView.Large.FadingCircle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        app:SpinKit_Color="@color/green_dark"
+        android:visibility="invisible"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_products_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/price_filter_title" />
+
+</RelativeLayout>
