@@ -35,7 +35,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.MyViewHolder>{
     Context context;
@@ -60,6 +62,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.MyView
         return myViewHolder;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull CartItemAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Product product = productList.get(position);
@@ -82,8 +85,15 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.MyView
             public void onClick(View view) {
                 Order order = new Order();
                 order.setCustomerId(mcp.getCustomer().getId().toString());
+                order.setProductId(product.getId());
                 order.setAmount(product.getPrice());
-                order.setDateTime(LocalDateTime.now().toString());
+
+                //FORMATTING DATE PROPERLY
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Utilities.DATE_TIME_FORMAT, Locale.ENGLISH);
+                String currentDateTime = LocalDateTime.now().format(formatter);
+//                LocalDateTime dateTime = LocalDateTime.parse(currentDateTime, formatter);
+                order.setDateTime(currentDateTime);
+
                 order.setStoreId(product.getStoreId());
                 order.setStatus(Utilities.pending_utility);
                 databaseHandler.getOrdersReference().push().setValue(order).addOnCompleteListener(new OnCompleteListener<Void>() {

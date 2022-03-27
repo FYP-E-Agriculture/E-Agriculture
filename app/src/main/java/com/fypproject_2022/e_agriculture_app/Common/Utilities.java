@@ -2,17 +2,24 @@ package com.fypproject_2022.e_agriculture_app.Common;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.PopupMenu;
 
+import com.fypproject_2022.e_agriculture_app.Customer.Common.MyCustomerPreferences;
 import com.fypproject_2022.e_agriculture_app.R;
+import com.fypproject_2022.e_agriculture_app.Vendor.Common.MyVendorPreferences;
+import com.fypproject_2022.e_agriculture_app.Vendor.Dashboard.DashboardVendor;
 
 import java.util.regex.Pattern;
 
 public class Utilities {
+
+    /////--------------------DATE-TIME-FORMAT---------------------/////
+    public static final String DATE_TIME_FORMAT="dd-MM-yyyy";
 
     /////--------------------SHARED PREFERENCES------------------////////
     public static final String admin_preferences = "ADMIN_PREFERENCES";
@@ -80,6 +87,52 @@ public class Utilities {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // Continue with delete operation
+                        dialog.dismiss();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+    public static void createLogoutCustomerDialog(Context context){
+        AlertDialog alertDialog = new AlertDialog.Builder(context)
+                .setTitle("Logout")
+                .setMessage("Continue logging out?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Continue with delete operation
+                        MyCustomerPreferences.setLogin(false);
+                        Intent intent = new Intent(context, SelectUserType.class);
+                        intent.putExtra(Utilities.intent_user_category, Utilities.user_customer);
+                        context.startActivity(intent);
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        dialog.dismiss();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+    public static void createLogoutVendorDialog(Context context){
+        AlertDialog alertDialog = new AlertDialog.Builder(context)
+                .setTitle("Logout")
+                .setMessage("Continue logging out?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Continue with delete operation
+                        MyVendorPreferences.setLogin(false);
+                        Intent intent = new Intent(context, SelectUserType.class);
+                        intent.putExtra(Utilities.intent_user_category, Utilities.user_vendor);
+                        context.startActivity(intent);
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
                         dialog.dismiss();
                     }
                 })

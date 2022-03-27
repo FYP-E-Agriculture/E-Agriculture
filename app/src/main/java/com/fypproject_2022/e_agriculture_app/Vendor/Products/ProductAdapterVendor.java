@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import com.fypproject_2022.e_agriculture_app.Common.Utilities;
 import com.fypproject_2022.e_agriculture_app.Models.Product;
 import com.fypproject_2022.e_agriculture_app.Models.Store;
 import com.fypproject_2022.e_agriculture_app.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -42,6 +44,8 @@ public class ProductAdapterVendor extends RecyclerView.Adapter<ProductAdapterVen
     public void onBindViewHolder(@NonNull ProductAdapterVendor.MyViewHolder holder, int position) {
         Product product = productList.get(position);
         holder.name.setText(product.getName());
+        holder.storeName.setText(product.getStoreName());
+        Picasso.get().load(product.getImage()).into(holder.imageView);
         holder.price.setText("Rs."+Integer.toString(product.getPrice()));
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -69,9 +73,13 @@ public class ProductAdapterVendor extends RecyclerView.Adapter<ProductAdapterVen
         CardView cardView;
         TextView name;
         TextView price;
+        TextView storeName;
+        ImageView imageView;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             name=itemView.findViewById(R.id.product_name);
+            storeName=itemView.findViewById(R.id.product_store_name);
+            imageView=itemView.findViewById(R.id.image);
             price=itemView.findViewById(R.id.product_price);
             cardView=itemView.findViewById(R.id.cardView);
         }

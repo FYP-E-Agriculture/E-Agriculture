@@ -13,11 +13,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fypproject_2022.e_agriculture_app.Common.DatabaseHandler;
 import com.fypproject_2022.e_agriculture_app.Common.Utilities;
+import com.fypproject_2022.e_agriculture_app.Customer.Products.ProductAdapter;
 import com.fypproject_2022.e_agriculture_app.Models.Product;
 import com.fypproject_2022.e_agriculture_app.Models.Review;
 import com.fypproject_2022.e_agriculture_app.Models.Store;
@@ -35,8 +38,10 @@ import java.util.List;
 
 public class ProductManagementActivity extends AppCompatActivity {
 
+    RadioGroup radioGroup;
+    RadioButton radioButton;
     FloatingActionButton fab;
-    TextView productsFilter;
+//    TextView productsFilter;
     TextView filterTextView;
     CardView productsFilterCard;
     ProgressBar progressBar;
@@ -56,9 +61,10 @@ public class ProductManagementActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_management);
 
+        radioGroup =(RadioGroup)findViewById(R.id.radio_group);
         fab =findViewById(R.id.fab);
         filterTextView =findViewById(R.id.filtertext);
-        productsFilter=findViewById(R.id.products_filter);
+//        productsFilter=findViewById(R.id.products_filter);
         productsFilterCard=findViewById(R.id.products_filter_card);
         addBtn=findViewById(R.id.add_btn);
         recyclerView=findViewById(R.id.products_recycler_view);
@@ -110,6 +116,8 @@ public class ProductManagementActivity extends AppCompatActivity {
                         });
                     }
                     updateRecyclerView();
+
+                    adapter.notifyDataSetChanged();
                     progressBar.setVisibility(View.INVISIBLE);
                 }
                 else {
@@ -146,27 +154,48 @@ public class ProductManagementActivity extends AppCompatActivity {
             }
         });
     }
-    public void showProductCategories(View v){
-        PopupMenu popup = new PopupMenu(v.getContext(), v);
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                productsFilter.setText(item.getTitle().toString());
-                updateRecyclerView();
-                return true;
-            }
-        });
-        popup.inflate(R.menu.product_category_popup_menu);
-        popup.show();
-    }
+//    public void showProductCategories(View v){
+//        PopupMenu popup = new PopupMenu(v.getContext(), v);
+//        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                productsFilter.setText(item.getTitle().toString());
+//                updateRecyclerView();
+//                return true;
+//            }
+//        });
+//        popup.inflate(R.menu.product_category_popup_menu);
+//        popup.show();
+//    }
     void updateRecyclerView(){
         productList =new ArrayList<>();
         adapter= new ProductAdapterVendor(ProductManagementActivity.this, productList, store);
         recyclerView.setAdapter(adapter);
 
         for (Product product : productListAll) {
-            if (product.getCategory().equals(productsFilter.getText().toString())) {
+            productList.add(product);
+        }
+        adapter.notifyDataSetChanged();
+    }
+
+    public void updateFromRadio(View v){
+        int radioId = radioGroup.getCheckedRadioButtonId();
+        radioButton= findViewById(radioId);
+
+        productList =new ArrayList<>();
+        adapter= new ProductAdapterVendor(ProductManagementActivity.this, productList, store);
+        recyclerView.setAdapter(adapter);
+
+        if(radioButton.getText().toString().equals("No Filter")){
+            for (Product product : productListAll) {
                 productList.add(product);
+            }
+        }
+        else {
+            for (Product product : productListAll) {
+                if (product.getCategory().equals(radioButton.getText())) {
+                    productList.add(product);
+                }
             }
         }
         adapter.notifyDataSetChanged();

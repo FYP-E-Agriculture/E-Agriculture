@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EAgriculture">
         <activity
+            android:name=".Customer.Stores.StoreDetail"
+            android:exported="true" />
+        <activity
+            android:name=".Customer.Products.ViewStores"
+            android:exported="true" />
+        <activity
             android:name=".Vendor.Orders.OrderDetailVendor"
             android:exported="true" />
         <activity
@@ -41,7 +47,7 @@
             android:exported="true"
             android:parentActivityName=".Vendor.Dashboard.DashboardVendor" />
         <activity
-            android:name=".Customer.Products.AddReview"
+            android:name=".Customer.Orders.AddReview"
             android:exported="true" />
         <activity
             android:name=".Admin.Dashboard.DashboardAdmin"

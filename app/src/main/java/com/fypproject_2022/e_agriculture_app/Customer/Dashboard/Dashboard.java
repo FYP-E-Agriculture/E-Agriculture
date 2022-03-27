@@ -14,12 +14,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.fypproject_2022.e_agriculture_app.Common.SelectUserType;
 import com.fypproject_2022.e_agriculture_app.Common.Utilities;
 import com.fypproject_2022.e_agriculture_app.Customer.Cart.CartActivity;
 import com.fypproject_2022.e_agriculture_app.Customer.Orders.ViewOrdersActivity;
 import com.fypproject_2022.e_agriculture_app.Customer.Products.ComparePrices;
 import com.fypproject_2022.e_agriculture_app.Customer.Products.ViewProducts;
+import com.fypproject_2022.e_agriculture_app.Customer.Products.ViewStores;
 import com.fypproject_2022.e_agriculture_app.Models.Customer;
 import com.fypproject_2022.e_agriculture_app.R;
 import com.fypproject_2022.e_agriculture_app.Customer.Common.MyCustomerPreferences;
@@ -71,7 +71,7 @@ public class Dashboard extends AppCompatActivity {
         drawer.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
         actionBarDrawerToggle.syncState();
-        productCard=findViewById(R.id.productCard);
+        productCard =findViewById(R.id.storeCard);
         ordersCard=findViewById(R.id.ordersCard);
         cartCard=findViewById(R.id.cartCard);
         logoutCard=findViewById(R.id.logoutCard);
@@ -123,10 +123,11 @@ public class Dashboard extends AppCompatActivity {
 
                     if (drawer.isDrawerOpen(navView)) {
                         drawer.closeDrawer(navView);
-                        MyCustomerPreferences.setLogin(false);
-                        Intent intent = new Intent(Dashboard.this, SelectUserType.class);
-                        intent.putExtra(Utilities.intent_user_category, Utilities.user_customer);
-                        startActivity(intent);
+                        Utilities.createLogoutCustomerDialog(Dashboard.this);
+//                        MyCustomerPreferences.setLogin(false);
+//                        Intent intent = new Intent(Dashboard.this, SelectUserType.class);
+//                        intent.putExtra(Utilities.intent_user_category, Utilities.user_customer);
+//                        startActivity(intent);
                     }
                 }
                 return false;
@@ -154,10 +155,11 @@ public class Dashboard extends AppCompatActivity {
         logoutCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MyCustomerPreferences.setLogin(false);
-                Intent intent = new Intent(Dashboard.this, SelectUserType.class);
-                intent.putExtra(Utilities.intent_user_category, Utilities.user_customer);
-                startActivity(intent);
+                Utilities.createLogoutCustomerDialog(Dashboard.this);
+//                MyCustomerPreferences.setLogin(false);
+//                Intent intent = new Intent(Dashboard.this, SelectUserType.class);
+//                intent.putExtra(Utilities.intent_user_category, Utilities.user_customer);
+//                startActivity(intent);
             }
         });
     }

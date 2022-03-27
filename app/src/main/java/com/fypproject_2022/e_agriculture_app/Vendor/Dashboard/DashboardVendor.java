@@ -186,10 +186,12 @@ public class DashboardVendor extends AppCompatActivity {
 
                     if (drawer.isDrawerOpen(navView)) {
                         drawer.closeDrawer(navView);
-                        MyVendorPreferences.setLogin(false);
-                        Intent intent = new Intent(DashboardVendor.this, SelectUserType.class);
-                        intent.putExtra(Utilities.intent_user_category, Utilities.user_vendor);
-                        startActivity(intent);
+                        Utilities.createLogoutVendorDialog(DashboardVendor.this);
+
+//                        MyVendorPreferences.setLogin(false);
+//                        Intent intent = new Intent(DashboardVendor.this, SelectUserType.class);
+//                        intent.putExtra(Utilities.intent_user_category, Utilities.user_vendor);
+//                        startActivity(intent);
                     }
                 }
                 return false;

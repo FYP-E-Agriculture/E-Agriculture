@@ -46,7 +46,7 @@
                     android:rowCount="4">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/productCard"
+                        android:id="@+id/storeCard"
                         android:layout_width="155dp"
                         android:layout_height="155dp"
                         android:layout_margin="10dp"

@@ -1,25 +1,21 @@
 package com.fypproject_2022.e_agriculture_app.Customer.Orders;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.fypproject_2022.e_agriculture_app.Common.DatabaseHandler;
-import com.fypproject_2022.e_agriculture_app.Common.ReviewAdapter;
 import com.fypproject_2022.e_agriculture_app.Common.Utilities;
-import com.fypproject_2022.e_agriculture_app.Customer.Products.AddReview;
-import com.fypproject_2022.e_agriculture_app.Customer.Products.ProductDetail;
-import com.fypproject_2022.e_agriculture_app.Customer.Products.ViewProducts;
 import com.fypproject_2022.e_agriculture_app.Models.Order;
 import com.fypproject_2022.e_agriculture_app.Models.Product;
-import com.fypproject_2022.e_agriculture_app.Models.Review;
 import com.fypproject_2022.e_agriculture_app.Models.Store;
 import com.fypproject_2022.e_agriculture_app.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -27,14 +23,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class OrderDetail extends AppCompatActivity {
 
-    FloatingActionButton writeReviewBtn;
+    Button writeReviewBtn;
     CircleImageView imageView;
 
     TextView date;
@@ -46,7 +43,7 @@ public class OrderDetail extends AppCompatActivity {
     TextView category;
     TextView description;
 
-    ProgressBar progressBar;
+//    ProgressBar progressBar;
 
     Intent intent;
     Product product;
@@ -56,6 +53,7 @@ public class OrderDetail extends AppCompatActivity {
     FirebaseUser user;
     FirebaseAuth auth;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,11 +61,13 @@ public class OrderDetail extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Order Detail");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        progressBar=findViewById(R.id.progress);
+
+
+//        progressBar=findViewById(R.id.progress);
         imageView=findViewById(R.id.imageView);
 
-        writeReviewBtn =findViewById(R.id.write_review);
         date=findViewById(R.id.date_val);
+        writeReviewBtn =findViewById(R.id.write_review);
         amount=findViewById(R.id.amount_val);
         status=findViewById(R.id.status_val);
 
@@ -75,11 +75,7 @@ public class OrderDetail extends AppCompatActivity {
         price=findViewById(R.id.price_val);
         description=findViewById(R.id.description_val);
         category=findViewById(R.id.category_val);
-        progressBar.setVisibility(View.VISIBLE);
-        //ADD RATING button will only be visible if the customer currently has received the product
-        if(order.getStatus().equals(Utilities.order_pending)){
-            writeReviewBtn.setVisibility(View.INVISIBLE);
-        }
+//        progressBar.setVisibility(View.VISIBLE);
 
         intent=getIntent();
         product= (Product) intent.getSerializableExtra(Utilities.intent_product);
@@ -89,8 +85,13 @@ public class OrderDetail extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         user=auth.getCurrentUser();
 
+        //ADD RATING button will only be visible if the customer currently has received the product
+        if(order.getStatus().equals(Utilities.order_pending)){
+            writeReviewBtn.setVisibility(View.INVISIBLE);
+        }
         date.setText(order.getDateTime());
-        amount.setText(order.getAmount());
+
+        amount.setText(Integer.toString(order.getAmount()));
         status.setText(order.getStatus());
 
         Picasso.get().load(product.getImage()).into(imageView);

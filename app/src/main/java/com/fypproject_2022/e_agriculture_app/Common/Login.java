@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -129,6 +130,8 @@ public class Login extends AppCompatActivity {
     }
 
     public static void getVendorLoginData(){
+
+        Log.d("LOGIN", "VENDOR LOGIN DATA");
         progressBar.setVisibility(View.INVISIBLE);
         Intent intent = new Intent(context, DashboardVendor.class);
         intent.putExtra(Utilities.intent_vendor, mvp.getVendor());

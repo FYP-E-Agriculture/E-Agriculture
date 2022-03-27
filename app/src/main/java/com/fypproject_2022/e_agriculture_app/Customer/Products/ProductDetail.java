@@ -47,16 +47,18 @@ public class ProductDetail extends AppCompatActivity {
     CircleImageView imageView;
     TextView name;
     TextView price;
+    TextView rating;
     TextView category;
     TextView description;
     TextView title_reviews;
+    TextView title_ratings;
     ImageView addBtn;
     ProgressBar progressBar;
-    RatingBar ratingBar;
 
     Intent intent;
     Product product;
     Store store;
+    float ratingValue;
     DatabaseHandler databaseHandler;
     RecyclerView recyclerView;
     ReviewAdapter adapter;
@@ -68,7 +70,7 @@ public class ProductDetail extends AppCompatActivity {
         setContentView(R.layout.activity_product_detail);
         getSupportActionBar().setTitle("Product Detail");
 
-        ratingBar=findViewById(R.id.ratingBar);
+        rating= findViewById(R.id.rating_val);
         progressBar=findViewById(R.id.progress);
         imageView=findViewById(R.id.imageView);
         name=findViewById(R.id.name_val);
@@ -77,6 +79,7 @@ public class ProductDetail extends AppCompatActivity {
         category=findViewById(R.id.category_val);
         recyclerView=findViewById(R.id.reviews_recyclerview);
         title_reviews =findViewById(R.id.title_reviews);
+        title_ratings =findViewById(R.id.title_ratings);
         addBtn=findViewById(R.id.add_to_cart_button);
         progressBar.setVisibility(View.VISIBLE);
 
@@ -87,7 +90,7 @@ public class ProductDetail extends AppCompatActivity {
 
         recyclerView.setVisibility(View.INVISIBLE);
         title_reviews.setVisibility(View.INVISIBLE);
-        ratingBar.setVisibility(View.INVISIBLE);
+        title_ratings.setVisibility(View.INVISIBLE);
 
         reviewList= new ArrayList<>();
         adapter = new ReviewAdapter(reviewList);
@@ -98,12 +101,15 @@ public class ProductDetail extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 reviewList = new ArrayList<>();
+                ratingValue=0.0f;
                 for (DataSnapshot snapShot : dataSnapshot.getChildren()) {
                     Review review = snapShot.getValue(Review.class);
                     if(review.getProductId().equals(product.getId())){
                         reviewList.add(review);
+                        ratingValue+=review.getRating();
                     }
                 }
+                rating.setText(Float.toString(ratingValue));
                 adapter.notifyDataSetChanged();
                 progressBar.setVisibility(View.GONE);
                 setReviewsVisibility();
@@ -168,7 +174,8 @@ public class ProductDetail extends AppCompatActivity {
         if(reviewList.size()!=0){
             recyclerView.setVisibility(View.VISIBLE);
             title_reviews.setVisibility(View.VISIBLE);
-            ratingBar.setVisibility(View.VISIBLE);
+            title_ratings.setVisibility(View.VISIBLE);
+
             adapter = new ReviewAdapter(reviewList);
             recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();

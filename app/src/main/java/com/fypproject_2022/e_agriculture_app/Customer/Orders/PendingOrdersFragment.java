@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 import com.fypproject_2022.e_agriculture_app.Common.DatabaseHandler;
 import com.fypproject_2022.e_agriculture_app.Common.Utilities;
 import com.fypproject_2022.e_agriculture_app.Customer.Common.MyCustomerPreferences;
+import com.fypproject_2022.e_agriculture_app.Customer.Products.ProductAdapter;
+import com.fypproject_2022.e_agriculture_app.Customer.Products.ViewProducts;
 import com.fypproject_2022.e_agriculture_app.Models.Order;
 import com.fypproject_2022.e_agriculture_app.Models.Product;
 import com.fypproject_2022.e_agriculture_app.R;
@@ -96,9 +99,11 @@ public class PendingOrdersFragment extends Fragment {
                                 Product product = snapshot2.getValue(Product.class);
 
                                 for (Order order : orderList) {
-                                    if(product.getId().equals(order.getId())  && order.getCustomerId().equals(mcp.getCustomer().getId())){
+                                    if(product.getId().equals(order.getProductId())
+                                            && order.getCustomerId().equals(mcp.getCustomer().getId())
+                                            && order.getStatus().equals(Utilities.order_pending)){
                                         productList.add(product);
-                                        System.out.println("FOUND+"+product.getName());
+                                        adapter.notifyDataSetChanged();
                                     }
                                 }
                             }
@@ -106,8 +111,8 @@ public class PendingOrdersFragment extends Fragment {
                         if(rowCount==0){
                             empty.setVisibility(View.VISIBLE);
                         }
+
                         progressBar.setVisibility(View.INVISIBLE);
-                        adapter.notifyDataSetChanged();
                     }
 
                     @Override
@@ -125,4 +130,16 @@ public class PendingOrdersFragment extends Fragment {
 
         return view;
     }
+//
+//    void updateRecyclerView(){
+//        orderList =new ArrayList<>();
+//        adapter= new OrdersAdapter(getActivity().getApplicationContext(), orderList, productList);
+//        recyclerView.setAdapter(adapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(),LinearLayoutManager.VERTICAL, false));
+//
+//        for (Order order : orderList) {
+//            orderList.add(order);
+//        }
+//        adapter.notifyDataSetChanged();
+//    }
 }

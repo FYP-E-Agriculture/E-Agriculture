@@ -3,6 +3,8 @@ package com.fypproject_2022.e_agriculture_app.Models;
 import java.io.Serializable;
 
 public class Review implements Serializable {
+
+    float rating;
     String productId;
     String reviewerName;
     String description;
@@ -10,11 +12,19 @@ public class Review implements Serializable {
     public Review() {
     }
 
-    public Review(String productId, String reviewerName, String description) {
-
+    public Review(float rating, String productId, String reviewerName, String description) {
+        this.rating = rating;
         this.productId = productId;
         this.reviewerName = reviewerName;
         this.description = description;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
     public String getProductId() {

@@ -1,21 +1,13 @@
 package com.fypproject_2022.e_agriculture_app.Vendor.Stores;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fypproject_2022.e_agriculture_app.Common.SelectUserType;
 import com.fypproject_2022.e_agriculture_app.Common.Utilities;
 import com.fypproject_2022.e_agriculture_app.Models.Store;
 import com.fypproject_2022.e_agriculture_app.Models.Vendor;
@@ -24,10 +16,6 @@ import com.fypproject_2022.e_agriculture_app.Vendor.Common.MyVendorPreferences;
 import com.fypproject_2022.e_agriculture_app.Vendor.Dashboard.DashboardVendor;
 import com.fypproject_2022.e_agriculture_app.Vendor.Orders.ViewOrdersVendor;
 import com.fypproject_2022.e_agriculture_app.Vendor.Products.ProductManagementActivity;
-import com.google.android.material.navigation.NavigationView;
-import com.squareup.picasso.Picasso;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class StoreDashboard extends AppCompatActivity {
 
@@ -51,7 +39,7 @@ public class StoreDashboard extends AppCompatActivity {
         intent=getIntent();
         store= (Store) intent.getSerializableExtra(Utilities.intent_store);
 
-        productCard=findViewById(R.id.productCard);
+        productCard=findViewById(R.id.storeCard);
         ordersCard=findViewById(R.id.ordersCard);
         reportCard=findViewById(R.id.salesReportCard);
         customersCard=findViewById(R.id.customerCard);

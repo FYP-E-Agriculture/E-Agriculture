@@ -2,6 +2,7 @@ package com.fypproject_2022.e_agriculture_app.Common;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -352,13 +353,17 @@ public class DatabaseHandler {
 
                     user = auth.getCurrentUser();
                     if (user.isEmailVerified()) {
-
+                        Log.d("LOGIN", "EMAIL VERIFIED");
                         getVendorsReference().addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 for (DataSnapshot snapShot : dataSnapshot.getChildren()) {
+                                    Log.d("LOGIN", "VENDOR OBJECT FOUND");
                                     vendor = snapShot.getValue(Vendor.class);
+                                    Log.d("LOGIN", "VENDOR NAME\t"+vendor.getName());
+                                    Log.d("LOGIN", "VENDOR ID\t"+vendor.getId());
                                     if (vendor.getId().equals(auth.getCurrentUser().getUid())) {
+                                        Log.d("LOGIN", "VENDOR MATCHED");
                                         List<Store> stores1 = getStores(vendor.getId());
                                         if (stores1 != null) {
                                             vendor.setStoreList(stores1);
@@ -366,7 +371,8 @@ public class DatabaseHandler {
 
                                         vendorPreferences.saveVendor(vendor);
                                         vendorPreferences.setLogin(true);
-
+                                        Log.d("LOGIN", "VENDOR SAVED");
+                                        Log.d("LOGIN", "VENDOR NAME: "+vendor.getName());
                                         Login.getVendorLoginData();
                                         Login.progressBar.setVisibility(View.INVISIBLE);
                                         break;

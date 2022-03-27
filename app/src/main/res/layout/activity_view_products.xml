@@ -16,9 +16,10 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:titleTextColor="@color/white"
+            android:background="@color/green_dark"
             app:title="Products"
-            android:background="@color/green_dark">
+            app:titleTextColor="@color/white">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -36,15 +37,53 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:text="COMPARE PRICES"
-                    android:textSize="14sp"
                     android:layout_centerVertical="true"
-                    android:textColor="@color/white"/>
+                    android:text="COMPARE PRICES"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
 
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
 
+        <RelativeLayout
+            android:id="@+id/radio_buttons"
+            android:layout_below="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioGroup
+                android:id="@+id/radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/none"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:contentDescription="No Filter Applied"
+                    android:onClick="updateFromRadio"
+                    android:text="No Filter" />
+
+                <RadioButton
+                    android:id="@+id/fertilizer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="updateFromRadio"
+                    android:text="@string/category_fertilizer" />
+
+                <RadioButton
+                    android:id="@+id/insect_killer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="updateFromRadio"
+                    android:text="@string/category_insect_killer" />
+            </RadioGroup>
+
+        </RelativeLayout>
+
         <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/toolbar"
@@ -59,6 +98,22 @@
             android:text="Category Filter"
             android:textSize="20dp" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/products_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/radio_buttons"
+            android:padding="10dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+
+            android:id="@+id/stores_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/radio_buttons"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="20dp" />
+
         <com.github.ybq.android.spinkit.SpinKitView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/progress"
@@ -69,34 +124,30 @@
             android:layout_centerInParent="true"
             app:SpinKit_Color="@color/green_dark" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/products_filter_card"
-            android:layout_below="@+id/toolbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="10dp"
-            android:layout_margin="10dp"
-            android:onClick="showProductCategories"
-            android:layout_alignParentRight="true">
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:id="@+id/products_filter_card"-->
+<!--            android:layout_below="@+id/toolbar"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignTop="@+id/title"-->
+<!--            app:cardCornerRadius="10dp"-->
+<!--            android:layout_marginHorizontal="10dp"-->
+<!--            android:onClick="showProductCategories"-->
+<!--            android:layout_alignParentRight="true">-->
 
-            <TextView
-                android:id="@+id/products_filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/green_dark"
-                android:backgroundTint="@color/green_dark"
-                android:paddingHorizontal="20dp"
-                android:paddingVertical="10dp"
-                android:drawableRight="@drawable/ic_drop_down_small"
-                android:text="Fertilizer"
-                android:textColor="@color/white" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/products_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/products_filter_card" />
+<!--            <TextView-->
+<!--                android:id="@+id/products_filter"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@color/green_dark"-->
+<!--                android:backgroundTint="@color/green_dark"-->
+<!--                -->
+<!--                android:paddingHorizontal="20dp"-->
+<!--                android:paddingVertical="10dp"-->
+<!--                android:drawableRight="@drawable/ic_drop_down_small"-->
+<!--                android:text="Fertilizer"-->
+<!--                android:textColor="@color/white" />-->
+<!--        </androidx.cardview.widget.CardView>-->
 
     </RelativeLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

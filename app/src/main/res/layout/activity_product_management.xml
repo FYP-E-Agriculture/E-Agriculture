@@ -25,8 +25,45 @@
                     android:layout_marginBottom="10dp"
                     android:drawableRight="@drawable/ic_filter"
                     android:drawablePadding="10dp"
-                    android:text="Filter"
+                    android:text="Category Filter"
                     android:textSize="20dp" />
+
+                <RelativeLayout
+                    android:id="@+id/radio_buttons"
+                    android:layout_below="@+id/filtertext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioGroup
+                        android:id="@+id/radio_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:id="@+id/none"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:contentDescription="No Filter Applied"
+                            android:onClick="updateFromRadio"
+                            android:text="No Filter" />
+
+                        <RadioButton
+                            android:id="@+id/fertilizer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="updateFromRadio"
+                            android:text="@string/category_fertilizer" />
+
+                        <RadioButton
+                            android:id="@+id/insect_killer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="updateFromRadio"
+                            android:text="@string/category_insect_killer" />
+                    </RadioGroup>
+
+                </RelativeLayout>
 
                 <com.github.ybq.android.spinkit.SpinKitView
                     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -45,26 +82,13 @@
                     app:cardCornerRadius="10dp"
                     android:layout_margin="10dp"
                     android:onClick="showProductCategories"
-                    android:layout_alignParentRight="true">
-
-                    <TextView
-                        android:id="@+id/products_filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/green_dark"
-                        android:backgroundTint="@color/green_dark"
-                        android:paddingHorizontal="20dp"
-                        android:paddingVertical="10dp"
-                        android:drawableRight="@drawable/ic_drop_down_small"
-                        android:text="Fertilizer"
-                        android:textColor="@color/white" />
-                </androidx.cardview.widget.CardView>
+                    android:layout_alignParentRight="true"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/products_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/products_filter_card" />
+                    android:layout_below="@id/radio_buttons" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fab"
@@ -90,7 +114,7 @@
                     android:layout_centerInParent="true">
 
                     <TextView
-                        android:id="@+id/title"
+                        android:id="@+id/no_stores_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
@@ -105,7 +129,7 @@
                         android:id="@+id/add_btn"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:layout_below="@+id/title"
+                        android:layout_below="@+id/no_stores_title"
                         android:layout_centerHorizontal="true"
                         android:src="@drawable/ic_add" />
 

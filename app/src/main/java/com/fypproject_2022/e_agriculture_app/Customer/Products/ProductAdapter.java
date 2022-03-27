@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,8 +16,11 @@ import com.fypproject_2022.e_agriculture_app.Common.Utilities;
 import com.fypproject_2022.e_agriculture_app.Models.Product;
 import com.fypproject_2022.e_agriculture_app.R;
 import com.fypproject_2022.e_agriculture_app.Vendor.Products.ProductDetailVendor;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHolder> {
     Context context;
@@ -39,6 +43,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     public void onBindViewHolder(@NonNull ProductAdapter.MyViewHolder holder, int position) {
         Product product = productList.get(position);
         holder.name.setText(product.getName());
+        holder.storeName.setText(product.getStoreName());
+        Picasso.get().load(product.getImage()).into(holder.imageView);
         holder.price.setText("Rs."+Integer.toString(product.getPrice()));
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -59,10 +65,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     public class MyViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView name;
+        TextView storeName;
+        CircleImageView imageView;
         TextView price;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             name=itemView.findViewById(R.id.product_name);
+            storeName=itemView.findViewById(R.id.product_store_name);
+            imageView=itemView.findViewById(R.id.image);
             price=itemView.findViewById(R.id.product_price);
             cardView=itemView.findViewById(R.id.cardView);
         }

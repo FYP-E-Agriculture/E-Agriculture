@@ -43,7 +43,7 @@
         android:layout_below="@+id/pass_top"
         android:layout_marginVertical="20dp"
         android:foregroundGravity="center"
-        android:numStars="5"
+        android:numStars="10"
         android:stepSize="1" />
 
 

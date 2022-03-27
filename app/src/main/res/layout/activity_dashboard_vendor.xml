@@ -74,7 +74,7 @@
             android:layout_centerInParent="true">
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/no_stores_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -89,7 +89,7 @@
                 android:id="@+id/add_btn"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_below="@+id/title"
+                android:layout_below="@+id/no_stores_title"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/ic_add" />
 

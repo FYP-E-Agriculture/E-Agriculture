@@ -54,8 +54,9 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull OrdersAdapter.MyViewHolder holder, int position) {
-        Order order = orderList.get(position);
-        if(productList.size()!=0){
+
+        if(orderList.size() > 0 && productList.size() > 0) {
+            Order order = orderList.get(position);
             Product product = productList.get(position);
             holder.name.setText(product.getName());
             holder.price.setText("Rs." + Integer.toString(product.getPrice()));
@@ -65,8 +66,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(context, "CLICKED", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(context, ProductDetail.class);
+                    Intent intent = new Intent(context, OrderDetail.class);
                     intent.putExtra(Utilities.intent_product, product);
                     intent.putExtra(Utilities.intent_order, order);
                     context.startActivity(intent);

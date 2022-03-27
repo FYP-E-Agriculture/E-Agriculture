@@ -64,6 +64,8 @@ public class ReceivedOrdersFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(),LinearLayoutManager.VERTICAL, false));
 
         databaseHandler.getOrdersReference().addListenerForSingleValueEvent(new ValueEventListener() {
+
+
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot :dataSnapshot.getChildren()) {
@@ -72,13 +74,41 @@ public class ReceivedOrdersFragment extends Fragment {
                             && order.getStatus().equals(Utilities.order_complete)){
                         orderList.add(order);
                         rowCount++;
-                        adapter.notifyDataSetChanged();
                     }
                 }
-                progressBar.setVisibility(View.INVISIBLE);
-                if(rowCount==0){
-                    empty.setVisibility(View.VISIBLE);
-                }
+
+                databaseHandler.getProductsReference().addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
+
+                            for (DataSnapshot snapshot2: snapshot.getChildren()) {
+
+                                Product product = snapshot2.getValue(Product.class);
+
+                                for (Order order : orderList) {
+                                    if(product.getId().equals(order.getProductId())
+                                            && order.getCustomerId().equals(mcp.getCustomer().getId())
+                                            && order.getStatus().equals(Utilities.order_complete)){
+                                        productList.add(product);
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                }
+                            }
+                        }
+                        if(rowCount==0){
+                            empty.setVisibility(View.VISIBLE);
+                        }
+
+                        progressBar.setVisibility(View.INVISIBLE);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
 
             @Override

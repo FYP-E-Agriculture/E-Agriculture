@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Product implements Serializable {
     int price;
+    float rating;
     String name;
     String id;
     String storeId;
@@ -18,6 +19,13 @@ public class Product implements Serializable {
     }
 
 
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
 
     public String getStoreName() {
         return storeName;
