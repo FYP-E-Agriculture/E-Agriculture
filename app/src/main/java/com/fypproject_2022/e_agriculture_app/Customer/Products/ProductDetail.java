@@ -21,6 +21,7 @@ import com.fypproject_2022.e_agriculture_app.Common.ReviewAdapter;
 import com.fypproject_2022.e_agriculture_app.Common.Utilities;
 import com.fypproject_2022.e_agriculture_app.Customer.Common.MyCustomerPreferences;
 import com.fypproject_2022.e_agriculture_app.Models.CartItem;
+import com.fypproject_2022.e_agriculture_app.Models.Order;
 import com.fypproject_2022.e_agriculture_app.Models.Product;
 import com.fypproject_2022.e_agriculture_app.Models.Review;
 import com.fypproject_2022.e_agriculture_app.Models.Store;
@@ -60,9 +61,11 @@ public class ProductDetail extends AppCompatActivity {
     Store store;
     float ratingValue;
     DatabaseHandler databaseHandler;
+    MyCustomerPreferences mcp;
     RecyclerView recyclerView;
     ReviewAdapter adapter;
     List<Review> reviewList;
+    boolean alreadyExists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +90,8 @@ public class ProductDetail extends AppCompatActivity {
         product= (Product) intent.getSerializableExtra(Utilities.intent_product);
         store= (Store) intent.getSerializableExtra(Utilities.intent_store);
         databaseHandler= new DatabaseHandler(this);
+        mcp = new MyCustomerPreferences(this);
+        alreadyExists=false;
 
         recyclerView.setVisibility(View.INVISIBLE);
         title_reviews.setVisibility(View.INVISIBLE);
@@ -131,39 +136,64 @@ public class ProductDetail extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CartItem cartItem = new CartItem("0",product.getId(), MyCustomerPreferences.getCustomer().getId(), product.getStoreId());
-                databaseHandler.getCartReference().push().setValue(cartItem).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                databaseHandler.getCartReference().addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        databaseHandler.getCartReference().addChildEventListener(new ChildEventListener() {
-                            @Override
-                            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                                CartItem cartItem1=snapshot.getValue(CartItem.class);
-                                cartItem1.setId(snapshot.getKey());
-                                databaseHandler.getCartReference().child(cartItem1.getId()).setValue(cartItem1);
-                                Toast.makeText(ProductDetail.this, "Item added to cart", Toast.LENGTH_SHORT).show();
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot :dataSnapshot.getChildren()) {
+                            Order order = snapshot.getValue(Order.class);
+                            if(order.getCustomerId().equals(mcp.getCustomer().getId())){
+                                if(order.getProductId().equals(product.getId())){
+                                    alreadyExists=true;
+                                }
                             }
+                        }
+                        if(alreadyExists){
+                            Toast.makeText(ProductDetail.this, "ITEM ALREADY IN CART", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            CartItem cartItem = new CartItem("0",product.getId(), mcp.getCustomer().getId(), product.getStoreId());
+                            databaseHandler.getCartReference().push().setValue(cartItem).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    databaseHandler.getCartReference().addChildEventListener(new ChildEventListener() {
+                                        @Override
+                                        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                                            CartItem cartItem1=snapshot.getValue(CartItem.class);
+                                            cartItem1.setId(snapshot.getKey());
+                                            databaseHandler.getCartReference().child(cartItem1.getId()).setValue(cartItem1);
+                                            Toast.makeText(ProductDetail.this, "ITEM ADDED TO CART", Toast.LENGTH_SHORT).show();
+                                        }
 
-                            @Override
-                            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                                        @Override
+                                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-                            }
+                                        }
 
-                            @Override
-                            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                                        @Override
+                                        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
 
-                            }
+                                        }
 
-                            @Override
-                            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                                        @Override
+                                        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-                            }
+                                        }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                Utilities.createAlertDialog(ProductDetail.this, "Error", error.getMessage());
-                            }
-                        });
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+                                            Utilities.createAlertDialog(ProductDetail.this, "Error", error.getMessage());
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                        alreadyExists=false;
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
                     }
                 });
             }

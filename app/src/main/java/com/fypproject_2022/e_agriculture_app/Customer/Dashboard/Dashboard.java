@@ -16,10 +16,10 @@ import android.widget.TextView;
 
 import com.fypproject_2022.e_agriculture_app.Common.Utilities;
 import com.fypproject_2022.e_agriculture_app.Customer.Cart.CartActivity;
+import com.fypproject_2022.e_agriculture_app.Customer.Common.CustomerProfile;
 import com.fypproject_2022.e_agriculture_app.Customer.Orders.ViewOrdersActivity;
 import com.fypproject_2022.e_agriculture_app.Customer.Products.ComparePrices;
 import com.fypproject_2022.e_agriculture_app.Customer.Products.ViewProducts;
-import com.fypproject_2022.e_agriculture_app.Customer.Products.ViewStores;
 import com.fypproject_2022.e_agriculture_app.Models.Customer;
 import com.fypproject_2022.e_agriculture_app.R;
 import com.fypproject_2022.e_agriculture_app.Customer.Common.MyCustomerPreferences;
@@ -106,7 +106,7 @@ public class Dashboard extends AppCompatActivity {
 
                     if (drawer.isDrawerOpen(navView)) {
                         drawer.closeDrawer(navView);
-//                        startActivity(new Intent(RegisterUserDashboard.this, RegisteredUserProfileActivity.class));
+                        startActivity(new Intent(Dashboard.this, CustomerProfile.class));
                     }
                 }
 
@@ -164,13 +164,6 @@ public class Dashboard extends AppCompatActivity {
         });
     }
 
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finishAffinity();
-    }
-
     public void showProductCategoryPopup(View v) {
         PopupMenu popup = new PopupMenu(this, v);
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -184,5 +177,11 @@ public class Dashboard extends AppCompatActivity {
         });
         popup.inflate(R.menu.product_category_popup_menu);
         popup.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
     }
 }

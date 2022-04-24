@@ -61,10 +61,11 @@ public class Utilities {
     /////--------------------ORDER STATUS------------------////////
     public static final String order_complete = "Complete";
     public static final String order_pending = "Pending";
+    public static final String order_dispatched = "Dispatched";
     public static final String order_new = "New";
 
     /////--------------------UTILITY STRINGS------------------////////
-    public static final String login_utility = "LOGIN";
+    public static final String LOGIN = "LOGIN";
     public static final String login_failed_utility = "LOGIN FAILED";
     public static final String customers_failed_utility = "GET CUSTOMERS FAILED";
     public static final String vendors_failed_utility = "GET VENDORS FAILED";
@@ -87,6 +88,45 @@ public class Utilities {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // Continue with delete operation
+                        dialog.dismiss();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+    public static void createDismissableAlertDialog(Context context, String title, String text){
+        AlertDialog alertDialog = new AlertDialog.Builder(context)
+                .setTitle(title)
+                .setMessage(text)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Continue with delete operation
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        dialog.dismiss();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+    public static void createOrderReceivedConfirmationDialog(Context context){
+        AlertDialog alertDialog = new AlertDialog.Builder(context)
+                .setTitle("Order Confirmation")
+                .setMessage("Confirm Order Receival?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
                         dialog.dismiss();
                     }
                 })
@@ -146,7 +186,6 @@ public class Utilities {
                     +"(?=.*[a-z])"          //minimum 0ne lower-case character
                     +"(?=.*[A-Z])"          //minimum 0ne Upper-case character
                     +"(?=.*[a-zA-Z])"       //any character
-                    +"(?=.*[@#$%^&+=])"     //minimum one special character
                     +"(?=\\S+$)"            //no white spaces
                     +".{8,}"                //minimum length 8 characters
                     +"$");
@@ -157,5 +196,10 @@ public class Utilities {
     public static final Pattern PASSWORD_SPECIALCHARACTER_PATTERN=Pattern.compile("(?=.*[@#$%^&+=])"+".{1,}");
 
 
-
+    public static boolean isInteger(String str){
+        if(str.matches("-?\\d+")){
+            return true;
+        }
+        return false;
+    }
 }

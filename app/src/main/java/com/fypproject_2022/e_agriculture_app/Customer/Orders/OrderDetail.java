@@ -1,8 +1,10 @@
 package com.fypproject_2022.e_agriculture_app.Customer.Orders;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,6 +34,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class OrderDetail extends AppCompatActivity {
 
     Button writeReviewBtn;
+    Button confirmReceivedBtn;
     CircleImageView imageView;
 
     TextView date;
@@ -68,6 +71,7 @@ public class OrderDetail extends AppCompatActivity {
 
         date=findViewById(R.id.date_val);
         writeReviewBtn =findViewById(R.id.write_review);
+        confirmReceivedBtn =findViewById(R.id.confirm_received);
         amount=findViewById(R.id.amount_val);
         status=findViewById(R.id.status_val);
 
@@ -85,9 +89,11 @@ public class OrderDetail extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         user=auth.getCurrentUser();
 
-        //ADD RATING button will only be visible if the customer currently has received the product
+        //CONFIRM RECEIVED button will only be visible if the customer is yet to receive the product
+        //ADD RATING button will only be visible if the customer has received the product
         if(order.getStatus().equals(Utilities.order_pending)){
             writeReviewBtn.setVisibility(View.INVISIBLE);
+            confirmReceivedBtn.setVisibility(View.VISIBLE);
         }
         date.setText(order.getDateTime());
 
@@ -108,6 +114,31 @@ public class OrderDetail extends AppCompatActivity {
                 intent.putExtra(Utilities.intent_product, product);
                 intent.putExtra(Utilities.intent_store, store);
                 startActivity(intent);
+            }
+        });
+
+        confirmReceivedBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog alertDialog = new AlertDialog.Builder(OrderDetail.this)
+                        .setTitle("Order Confirmation")
+                        .setMessage("Confirm Order Receival?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                order.setStatus(Utilities.order_complete);
+                                databaseHandler.getOrdersReference().child(order.getId()).setValue(order);
+                                startActivity(new Intent(OrderDetail.this, OrderDetail.class));
+                                finish();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int i) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
             }
         });
 

@@ -15,6 +15,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="category_fertilizer">Fertilizer</string>
     <string name="category_insect_killer">Insect Killer</string>
+    <string name="show_all"><u>Show All</u></string>
 
 
 </resources>

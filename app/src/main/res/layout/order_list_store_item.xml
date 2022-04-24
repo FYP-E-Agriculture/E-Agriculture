@@ -6,6 +6,8 @@
     app:cardCornerRadius="10dp"
     android:layout_margin="5dp"
     android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true"
     android:id="@+id/cardView">
 
     <RelativeLayout
@@ -39,9 +41,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/customer_name"
-            android:maxWidth="100dp"
-            android:maxLines="1"
             android:ellipsize="end"
+            android:maxWidth="150dp"
+            android:maxLines="1"
             android:text="Customer Address"
             android:textColor="@color/white" />
 

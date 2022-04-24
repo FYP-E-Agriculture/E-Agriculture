@@ -29,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PendingOrdersVendorFragment extends Fragment {
+public class DispatchedOrdersFragment extends Fragment {
     ProgressBar progressBar;
     TextView empty;
     int rowCount=0;
@@ -39,11 +39,11 @@ public class PendingOrdersVendorFragment extends Fragment {
     RecyclerView recyclerView;
     List<Order> orderList;
     List<Product> productList;
-    OrdersAdapter adapter;
+    OrdersVendorAdapter adapter;
 
     DatabaseHandler databaseHandler;
 
-    public PendingOrdersVendorFragment(Store store, Context context) {
+    public DispatchedOrdersFragment(Store store, Context context) {
         this.store = store;
         this.context=context;
     }
@@ -68,7 +68,7 @@ public class PendingOrdersVendorFragment extends Fragment {
         empty.setVisibility(View.INVISIBLE);
 
         recyclerView=view.findViewById(R.id.pending_orders_recycler_view);
-        adapter= new OrdersAdapter(this.getContext(), orderList, productList);
+        adapter= new OrdersVendorAdapter(this.getContext(), orderList, productList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(),LinearLayoutManager.VERTICAL, false));
 
@@ -79,12 +79,35 @@ public class PendingOrdersVendorFragment extends Fragment {
                     Order order = snapshot.getValue(Order.class);
                     System.out.println("Store ID 1:"+order.getStoreId());
                     System.out.println("Store ID 2:"+store.getId());
-                    if(order.getStoreId().equals(store.getId())
-                            && order.getStatus().equals(Utilities.pending_utility)){
+                    if(order.getStoreId().equals(store.getId()) && order.getStatus().equals(Utilities.order_dispatched)){
                         System.out.println("FOUND ONE");
                         orderList.add(order);
                         rowCount++;
                         adapter.notifyDataSetChanged();
+
+                        databaseHandler.getProductsReference().addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
+                                    for (DataSnapshot snapshot2: snapshot.getChildren()) {
+                                        Product product = snapshot2.getValue(Product.class);
+                                        System.out.println("PRODUCT ID:"+product.getId());
+                                        if(product.getId().equals(order.getProductId())
+                                                && order.getStoreId().equals(store.getId())
+                                                && (order.getStatus().equals(Utilities.order_dispatched))) {
+                                            productList.add(product);
+                                            System.out.println("MATCHED");
+                                            adapter.notifyDataSetChanged();
+                                        }
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                     }
                 }
                 progressBar.setVisibility(View.INVISIBLE);

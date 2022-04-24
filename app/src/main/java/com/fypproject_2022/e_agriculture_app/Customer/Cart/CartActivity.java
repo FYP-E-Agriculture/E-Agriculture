@@ -28,10 +28,9 @@ public class CartActivity extends AppCompatActivity {
 
     TextView empty;
     ProgressBar progressBar;
-    int rowCount=0;
 
     public static TextView total;
-    Button closeBtn;
+    Button completeBtn;
 
     DatabaseHandler databaseHandler;
     MyCustomerPreferences mcp;
@@ -57,7 +56,7 @@ public class CartActivity extends AppCompatActivity {
         progressBar = (ProgressBar)findViewById(R.id.progress);
         empty=findViewById(R.id.empty);
         total=findViewById(R.id.total_val);
-        closeBtn =findViewById(R.id.complete_sale_button);
+        completeBtn =findViewById(R.id.complete_sale_button);
         
         databaseHandler=new DatabaseHandler(this);
         mcp = new MyCustomerPreferences(this);
@@ -68,11 +67,12 @@ public class CartActivity extends AppCompatActivity {
         adapter = new CartItemAdapter(this, productList, cartItemList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        progressBar.setVisibility(View.VISIBLE);
+        empty.setVisibility(View.INVISIBLE);
 
         databaseHandler.getCartReference().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                progressBar.setVisibility(View.VISIBLE);
                 empty.setVisibility(View.INVISIBLE);
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     CartItem cartItem = snapshot.getValue(CartItem.class);
@@ -87,19 +87,17 @@ public class CartActivity extends AppCompatActivity {
                                             productList.add(product);
                                             cartItemList.add(cartItem);
 
-                                            rowCount++;
                                             itemCount++;
                                             totalAmount += product.getPrice();
                                             total.setText(Integer.toString(totalAmount));
-
                                             adapter.notifyDataSetChanged();
+                                            if(productList.size()==0){
+                                                empty.setVisibility(View.INVISIBLE);
+                                            }
+
                                         }
                                     }
                                 }
-                                if(rowCount==0){
-                                    empty.setVisibility(View.VISIBLE);
-                                }
-                                progressBar.setVisibility(View.INVISIBLE);
                             }
 
                             @Override
@@ -109,6 +107,13 @@ public class CartActivity extends AppCompatActivity {
                         });
                     }
                 }
+
+//                if(cartItemList.size()==0){
+//                    empty.setVisibility(View.VISIBLE);
+//                }else{
+//                    empty.setVisibility(View.INVISIBLE);
+//                }
+                progressBar.setVisibility(View.INVISIBLE);
             }
 
             @Override
@@ -119,22 +124,11 @@ public class CartActivity extends AppCompatActivity {
         });
 
 
-        closeBtn.setOnClickListener(new View.OnClickListener() {
+        completeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if(rowCount==0){
-            empty.setVisibility(View.VISIBLE);
-            progressBar.setVisibility(View.INVISIBLE);
-        }else{
-            empty.setVisibility(View.INVISIBLE);
-        }
     }
 }

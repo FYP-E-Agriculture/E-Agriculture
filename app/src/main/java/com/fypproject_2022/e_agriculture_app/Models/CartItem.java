@@ -4,16 +4,16 @@ public class CartItem {
     String id;
     String productId;
     String customerId;
-    String vendorId;
+    String storeId;
 
     public CartItem() {
     }
 
-    public CartItem(String id, String productId, String customerId, String vendorId) {
+    public CartItem(String id, String productId, String customerId, String storeId) {
         this.id = id;
         this.productId = productId;
         this.customerId = customerId;
-        this.vendorId = vendorId;
+        this.storeId = storeId;
     }
 
     public String getId() {
@@ -40,11 +40,11 @@ public class CartItem {
         this.customerId = customerId;
     }
 
-    public String getVendorId() {
-        return vendorId;
+    public String getStoreId() {
+        return storeId;
     }
 
-    public void setVendorId(String vendorId) {
-        this.vendorId = vendorId;
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
     }
 }

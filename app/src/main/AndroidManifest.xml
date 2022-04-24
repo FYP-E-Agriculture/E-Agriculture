@@ -10,10 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EAgriculture">
         <activity
-            android:name=".Customer.Stores.StoreDetail"
+            android:name=".Vendor.Common.VendorEditProfile"
             android:exported="true" />
         <activity
-            android:name=".Customer.Products.ViewStores"
+            android:name=".Vendor.Common.VendorProfile"
+            android:exported="true" />
+        <activity
+            android:name=".Customer.Common.CustomerEditProfile"
+            android:exported="true" />
+        <activity
+            android:name=".Customer.Common.CustomerProfile"
+            android:exported="true" />
+        <activity
+            android:name=".Customer.Stores.StoreDetail"
             android:exported="true" />
         <activity
             android:name=".Vendor.Orders.OrderDetailVendor"
@@ -63,7 +72,7 @@
         <activity
             android:name=".Customer.Products.ViewProducts"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:parentActivityName=".Customer.Dashboard.Dashboard" />
         <activity
             android:name=".Vendor.Products.EditProduct"
             android:exported="true" />

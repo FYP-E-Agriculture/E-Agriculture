@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.fypproject_2022.e_agriculture_app.Common.DatabaseHandler;
 import com.fypproject_2022.e_agriculture_app.Common.Utilities;
@@ -26,33 +28,34 @@ import java.util.List;
 
 public class ComparePrices extends AppCompatActivity {
 
+    RadioGroup radioGroup;
+    RadioButton radioButton;
     CardView cardView;
     ProgressBar progressBar;
     RecyclerView recyclerView;
     SearchProductsAdapter adapter;
-    Intent intent;
 
-    String productCategory;
     DatabaseHandler databaseHandler;
+    List<Product> productListAll;
     List<Product> productList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_product);
+        setContentView(R.layout.activity_price_comparison);
 
-        intent=getIntent();
-        productCategory=intent.getStringExtra(Utilities.intent_product_category);
         databaseHandler= new DatabaseHandler(this);
 
+        radioGroup =(RadioGroup)findViewById(R.id.radio_group);
         cardView = findViewById(R.id.price_filter_card);
         recyclerView = findViewById(R.id.search_products_recycler_view);
         progressBar = (ProgressBar)findViewById(R.id.progress);
         progressBar.setVisibility(View.VISIBLE);
 
-        getSupportActionBar().setTitle(productCategory);
+        getSupportActionBar().setTitle("Compare Prices");
 
-        productList= new ArrayList<>();
-        adapter= new SearchProductsAdapter(this,productList);
+        productListAll = new ArrayList<>();
+        productList = new ArrayList<>();
+        adapter= new SearchProductsAdapter(this, productList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
@@ -62,15 +65,15 @@ public class ComparePrices extends AppCompatActivity {
                 for (DataSnapshot snapShot : dataSnapshot.getChildren()){
                     for (DataSnapshot childSnapShot : snapShot.getChildren()) {
                         Product product = childSnapShot.getValue(Product.class);
-                        if(product.getCategory().equals(productCategory)){
-                            if(databaseHandler.getReviews(product.getId())!=null){
-                                product.setReviews(databaseHandler.getReviews(product.getId()));
-                            }
-                            productList.add(product);
+                        if (databaseHandler.getReviews(product.getId()) != null) {
+                            product.setReviews(databaseHandler.getReviews(product.getId()));
                         }
+                        productListAll.add(product);
+                        productList.add(product);
                     }
                 }
                 sortProductsByPrice(0);
+                updateRecyclerView();
                 adapter.notifyDataSetChanged();
                 progressBar.setVisibility(View.INVISIBLE);
             }
@@ -82,8 +85,8 @@ public class ComparePrices extends AppCompatActivity {
         });
     }
     List<Product> sortProductsByPrice(int option){
-        for(int i=0; i<productList.size();i++){
-            for (int j=0;j<productList.size();j++){
+        for(int i = 0; i< productList.size(); i++){
+            for (int j = 0; j< productList.size(); j++){
 
                 switch (option)
                 {
@@ -91,7 +94,7 @@ public class ComparePrices extends AppCompatActivity {
                     {
                         if(productList.get(i).getPrice() < productList.get(j).getPrice()){
                             Product temp = productList.get(i);
-                            productList.set(i,productList.get(j));
+                            productList.set(i, productList.get(j));
                             productList.set(j,temp);
                         }
 
@@ -101,7 +104,7 @@ public class ComparePrices extends AppCompatActivity {
                     {
                         if(productList.get(i).getPrice() > productList.get(j).getPrice()){
                             Product temp = productList.get(i);
-                            productList.set(i,productList.get(j));
+                            productList.set(i, productList.get(j));
                             productList.set(j,temp);
                         }
 
@@ -140,5 +143,39 @@ public class ComparePrices extends AppCompatActivity {
         });
         popup.inflate(R.menu.price_menu);
         popup.show();
+    }
+
+    public void updateFromRadio(View v){
+        int radioId = radioGroup.getCheckedRadioButtonId();
+        radioButton= findViewById(radioId);
+
+        productList =new ArrayList<>();
+        adapter= new SearchProductsAdapter(ComparePrices.this, productList);
+        recyclerView.setAdapter(adapter);
+
+        if(radioButton.getText().toString().equals("All")){
+            for (Product product : productListAll) {
+                productList.add(product);
+            }
+        }
+        else {
+            for (Product product : productListAll) {
+                if (product.getCategory().equals(radioButton.getText())) {
+                    productList.add(product);
+                }
+            }
+        }
+        adapter.notifyDataSetChanged();
+    }
+
+    void updateRecyclerView(){
+        productList =new ArrayList<>();
+        adapter= new SearchProductsAdapter(ComparePrices.this, productList);
+        recyclerView.setAdapter(adapter);
+
+        for (Product product : productListAll) {
+            productList.add(product);
+        }
+        adapter.notifyDataSetChanged();
     }
 }

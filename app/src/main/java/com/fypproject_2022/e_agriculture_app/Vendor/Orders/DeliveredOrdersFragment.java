@@ -40,7 +40,7 @@ public class DeliveredOrdersFragment extends Fragment {
     RecyclerView recyclerView;
     List<Order> orderList;
     List<Product> productList;
-    OrdersAdapter adapter;
+    OrdersVendorAdapter adapter;
 
     DatabaseHandler databaseHandler;
     public DeliveredOrdersFragment(Store store, Context context) {
@@ -69,7 +69,7 @@ public class DeliveredOrdersFragment extends Fragment {
         empty.setVisibility(View.INVISIBLE);
 
         recyclerView=view.findViewById(R.id.delivered_orders_recycler_view);
-        adapter= new OrdersAdapter(this.getContext(), orderList, productList);
+        adapter= new OrdersVendorAdapter(this.getContext(), orderList, productList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(),LinearLayoutManager.VERTICAL, false));
 
@@ -78,11 +78,37 @@ public class DeliveredOrdersFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot :dataSnapshot.getChildren()) {
                     Order order = snapshot.getValue(Order.class);
-                    if(order.getStoreId().equals(store.getId())
-                            && order.getStatus().equals(Utilities.complete_utility)){
+                    System.out.println("Store ID 1:"+order.getStoreId());
+                    System.out.println("Store ID 2:"+store.getId());
+                    if(order.getStoreId().equals(store.getId()) && order.getStatus().equals(Utilities.order_complete)){
+                        System.out.println("FOUND ONE");
                         orderList.add(order);
                         rowCount++;
                         adapter.notifyDataSetChanged();
+
+                        databaseHandler.getProductsReference().addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
+                                    for (DataSnapshot snapshot2: snapshot.getChildren()) {
+                                        Product product = snapshot2.getValue(Product.class);
+                                        System.out.println("PRODUCT ID:"+product.getId());
+                                        if(product.getId().equals(order.getProductId())
+                                                && order.getStoreId().equals(store.getId())
+                                                && (order.getStatus().equals(Utilities.order_complete))) {
+                                            productList.add(product);
+                                            System.out.println("MATCHED");
+                                            adapter.notifyDataSetChanged();
+                                        }
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                     }
                 }
                 progressBar.setVisibility(View.INVISIBLE);

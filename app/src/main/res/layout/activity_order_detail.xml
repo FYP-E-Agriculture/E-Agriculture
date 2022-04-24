@@ -29,6 +29,15 @@
                 android:contentDescription="Add to Cart"
                 android:text="Review" />
 
+            <Button
+                android:id="@+id/confirm_received"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mainLayout"
+                android:layout_marginTop="5dp"
+                android:text="RECEIVED"
+                android:visibility="gone"/>
+
             <LinearLayout
                 android:id="@+id/mainLayout"
                 android:layout_width="wrap_content"
@@ -63,7 +72,7 @@
                 android:id="@+id/title_order_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/mainLayout"
+                android:layout_below="@+id/confirm_received"
                 android:layout_marginTop="20dp"
                 android:text="Order Detail"
                 android:textColor="@color/green_dark"

@@ -76,51 +76,83 @@ public class PendingOrdersFragment extends Fragment {
 
         databaseHandler.getOrdersReference().addListenerForSingleValueEvent(new ValueEventListener() {
 
-
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot :dataSnapshot.getChildren()) {
                     Order order = snapshot.getValue(Order.class);
-                    if(order.getCustomerId().equals(mcp.getCustomer().getId())
-                            && order.getStatus().equals(Utilities.order_pending)){
+                    System.out.println("ORDER CUST ID:"+order.getCustomerId());
+                    System.out.println("CUSTOMER ID:"+mcp.getCustomer().getId());
+                    if(order.getCustomerId().equals(mcp.getCustomer().getId()) && order.getStatus().equals(Utilities.order_pending)){
                         orderList.add(order);
                         rowCount++;
-                    }
-                }
+                        System.out.println("MATCHED");
 
-                databaseHandler.getProductsReference().addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                        for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
-
-                            for (DataSnapshot snapshot2: snapshot.getChildren()) {
-
-                                Product product = snapshot2.getValue(Product.class);
-
-                                for (Order order : orderList) {
-                                    if(product.getId().equals(order.getProductId())
-                                            && order.getCustomerId().equals(mcp.getCustomer().getId())
-                                            && order.getStatus().equals(Utilities.order_pending)){
-                                        productList.add(product);
-                                        adapter.notifyDataSetChanged();
+                        databaseHandler.getProductsReference().addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
+                                    for (DataSnapshot snapshot2: snapshot.getChildren()) {
+                                        Product product = snapshot2.getValue(Product.class);
+                                        System.out.println("PRODUCT ID:"+product.getId());
+                                        if(product.getId().equals(order.getProductId())
+                                                && order.getCustomerId().equals(mcp.getCustomer().getId())
+                                                && (order.getStatus().equals(Utilities.order_pending) || order.getStatus().equals(Utilities.order_dispatched))) {
+                                            productList.add(product);
+                                            System.out.println("MATCHED");
+                                            adapter.notifyDataSetChanged();
+                                        }
                                     }
                                 }
                             }
-                        }
-                        if(rowCount==0){
-                            empty.setVisibility(View.VISIBLE);
-                        }
 
-                        progressBar.setVisibility(View.INVISIBLE);
-                    }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
 
                     }
-                });
+                }
+                if(rowCount==0){
+                    empty.setVisibility(View.VISIBLE);
+                }
+                adapter.notifyDataSetChanged();
+                progressBar.setVisibility(View.INVISIBLE);
+
+//                databaseHandler.getProductsReference().addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                        for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
+//
+//                            for (DataSnapshot snapshot2: snapshot.getChildren()) {
+//
+//                                Product product = snapshot2.getValue(Product.class);
+//
+//                                for (Order order : orderList) {
+//                                    if(product.getId().equals(order.getProductId())
+//                                            && order.getCustomerId().equals(mcp.getCustomer().getId())
+//                                            && order.getStatus().equals(Utilities.order_pending)){
+//                                        productList.add(product);
+//                                        adapter.notifyDataSetChanged();
+//                                    }
+//                                }
+//                            }
+//                        }
+//                        if(rowCount==0){
+//                            empty.setVisibility(View.VISIBLE);
+//                        }
+//
+//                        progressBar.setVisibility(View.INVISIBLE);
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

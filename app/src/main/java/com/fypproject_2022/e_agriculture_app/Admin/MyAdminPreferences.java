@@ -4,11 +4,9 @@ import static com.fypproject_2022.e_agriculture_app.Common.Utilities.key_image;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 
 import com.fypproject_2022.e_agriculture_app.Common.Utilities;
 import com.fypproject_2022.e_agriculture_app.Models.Admin;
-import com.fypproject_2022.e_agriculture_app.R;
 
 public class MyAdminPreferences {
     static Context context;
@@ -25,7 +23,7 @@ public class MyAdminPreferences {
 
     public static void setLogin(boolean login){
 
-        adminEditor.putBoolean(Utilities.login_utility,login);
+        adminEditor.putBoolean(Utilities.LOGIN,login);
         adminEditor.commit();
     }
 

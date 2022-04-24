@@ -7,9 +7,6 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +29,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -79,10 +75,11 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.MyView
             }
         });
 
-        holder.yes.setOnClickListener(new View.OnClickListener() {
+        holder.confirm.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
+
                 Order order = new Order();
                 order.setCustomerId(mcp.getCustomer().getId().toString());
                 order.setProductId(product.getId());
@@ -138,17 +135,19 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.MyView
 
             }
         });
-        holder.no.setOnClickListener(new View.OnClickListener() {
+        holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+//                cartItemList.remove(position);
+//                notifyDataSetChanged();
                 databaseHandler.getCartReference().child(cartItemList.get(position).getId()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
                             databaseHandler.getCartReference().child(cartItemList.get(position).getId()).removeValue();
-                            notifyDataSetChanged();
                             Toast.makeText(context, "Product removed from cart", Toast.LENGTH_SHORT).show();
+//                            context.startActivity(new Intent(context,CartActivity.class));
+                            notifyDataSetChanged();
                         }
                         else {
                             Utilities.createAlertDialog(context,"Error","Something went wrong. Please try again!");
@@ -168,14 +167,14 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.MyView
         CardView cardView;
         TextView name;
         TextView price;
-        ImageView yes;
-        ImageView no;
+        CardView confirm;
+        CardView delete;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             name=itemView.findViewById(R.id.product_name);
             price=itemView.findViewById(R.id.product_price);
-            yes=itemView.findViewById(R.id.yes);
-            no=itemView.findViewById(R.id.no);
+            confirm =itemView.findViewById(R.id.yes);
+            delete =itemView.findViewById(R.id.no);
             cardView=itemView.findViewById(R.id.cardView);
 
         }

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fypproject_2022.e_agriculture_app.Common.DatabaseHandler;
 import com.fypproject_2022.e_agriculture_app.Common.Utilities;
-import com.fypproject_2022.e_agriculture_app.Customer.Common.MyCustomerPreferences;
+import com.fypproject_2022.e_agriculture_app.Vendor.Common.MyVendorPreferences;
 import com.fypproject_2022.e_agriculture_app.Models.Order;
 import com.fypproject_2022.e_agriculture_app.Models.Product;
 import com.fypproject_2022.e_agriculture_app.R;
@@ -28,20 +28,20 @@ public class OrdersVendorAdapter extends RecyclerView.Adapter<OrdersVendorAdapte
     List<Product> productList;
     List<Order> orderList;
     DatabaseHandler databaseHandler;
-    MyCustomerPreferences mcp;
+    MyVendorPreferences mvp;
 
     public OrdersVendorAdapter(Context context, List<Order> orderList, List<Product> productList) {
         this.context=context;
         this.productList = productList;
         this.orderList = orderList;
         this.databaseHandler= new DatabaseHandler(context);
-        this.mcp= new MyCustomerPreferences(context);
+        this.mvp = new MyVendorPreferences(context);
     }
 
     @NonNull
     @Override
     public OrdersVendorAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.order_list_vendor_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.order_list_store_item, parent, false);
         OrdersVendorAdapter.MyViewHolder myViewHolder = new OrdersVendorAdapter.MyViewHolder(view);
 
         return myViewHolder;
@@ -52,16 +52,15 @@ public class OrdersVendorAdapter extends RecyclerView.Adapter<OrdersVendorAdapte
         Order order = orderList.get(position);
         if(productList.size()!=0){
             Product product = productList.get(position);
-            holder.name.setText(product.getName());
-            holder.price.setText("Rs." + Integer.toString(product.getPrice()));
-            holder.store.setText(product.getStoreName());
-            holder.date.setText(order.getDateTime());
+            holder.productName.setText(product.getName());
+            holder.city.setText("Rs." + Integer.toString(product.getPrice()));
+            holder.customerName.setText(product.getStoreName());
+            holder.customer_address.setText(order.getDateTime());
 
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(context, "CLICKED", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(context, ProductDetailVendor.class);
+                    Intent intent = new Intent(context, OrderDetailVendor.class);
                     intent.putExtra(Utilities.intent_product, product);
                     intent.putExtra(Utilities.intent_order, order);
                     context.startActivity(intent);
@@ -77,16 +76,16 @@ public class OrdersVendorAdapter extends RecyclerView.Adapter<OrdersVendorAdapte
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
-        TextView name;
-        TextView price;
-        TextView store;
-        TextView date;
+        TextView productName;
+        TextView city;
+        TextView customerName;
+        TextView customer_address;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            name=itemView.findViewById(R.id.product_name);
-            price=itemView.findViewById(R.id.product_price);
-            date=itemView.findViewById(R.id.order_date);
-            store=itemView.findViewById(R.id.product_store);
+            productName =itemView.findViewById(R.id.product_name);
+            city =itemView.findViewById(R.id.city_name);
+            customer_address =itemView.findViewById(R.id.customer_address);
+            customerName =itemView.findViewById(R.id.customer_name);
             cardView=itemView.findViewById(R.id.cardView);
         }
     }

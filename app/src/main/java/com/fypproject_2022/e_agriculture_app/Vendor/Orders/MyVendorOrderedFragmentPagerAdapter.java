@@ -25,9 +25,9 @@ public class MyVendorOrderedFragmentPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new NewOrdersVendorFragment(store, context);
+                return new NewOrdersFragment(store, context);
             case 1:
-                return new PendingOrdersVendorFragment(store, context);
+                return new DispatchedOrdersFragment(store, context);
 
             case 2:
                 return new DeliveredOrdersFragment(store, context);
@@ -49,7 +49,7 @@ public class MyVendorOrderedFragmentPagerAdapter extends FragmentPagerAdapter {
                 return "New";
             }
             case 1: {
-                return "Pending";
+                return "Dispatched";
             }
             case 2: {
                 return "Delivered";

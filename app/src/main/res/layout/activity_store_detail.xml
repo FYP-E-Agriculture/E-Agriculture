@@ -94,11 +94,45 @@
             android:text="Products"
             android:textSize="18dp" />
 
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:checked="true"
+                android:contentDescription="No Filter Applied"
+                android:onClick="updateFromRadio"
+                android:text="All" />
+
+            <RadioButton
+                android:id="@+id/shoes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:onClick="updateFromRadio"
+                android:text="@string/category_fertilizer" />
+
+            <RadioButton
+                android:id="@+id/clothes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="updateFromRadio"
+                android:text="@string/category_insect_killer" />
+
+        </RadioGroup>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/products_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/title"/>
+            android:layout_below="@+id/radio_group" />
 
     </RelativeLayout>
     <com.github.ybq.android.spinkit.SpinKitView
