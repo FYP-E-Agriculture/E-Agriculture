@@ -9,6 +9,7 @@ import android.os.Bundle;
 import com.fypproject_2022.e_agriculture_app.Common.Utilities;
 import com.fypproject_2022.e_agriculture_app.Models.Store;
 import com.fypproject_2022.e_agriculture_app.R;
+import com.fypproject_2022.e_agriculture_app.Vendor.Dashboard.DashboardVendor;
 import com.google.android.material.tabs.TabLayout;
 
 public class ViewOrdersVendor extends AppCompatActivity {
@@ -51,5 +52,12 @@ public class ViewOrdersVendor extends AppCompatActivity {
                 });
         viewPager.addOnPageChangeListener(
                 new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(ViewOrdersVendor.this, DashboardVendor.class));
+        finish();
     }
 }

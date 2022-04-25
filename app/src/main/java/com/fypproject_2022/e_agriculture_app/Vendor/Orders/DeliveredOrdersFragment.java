@@ -69,7 +69,7 @@ public class DeliveredOrdersFragment extends Fragment {
         empty.setVisibility(View.INVISIBLE);
 
         recyclerView=view.findViewById(R.id.delivered_orders_recycler_view);
-        adapter= new OrdersVendorAdapter(this.getContext(), orderList, productList);
+        adapter= new OrdersVendorAdapter(this.getContext(), store, orderList, productList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(),LinearLayoutManager.VERTICAL, false));
 

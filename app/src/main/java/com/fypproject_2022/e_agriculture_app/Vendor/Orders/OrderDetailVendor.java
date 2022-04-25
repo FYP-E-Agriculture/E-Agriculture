@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -52,6 +53,7 @@ public class OrderDetailVendor extends AppCompatActivity {
         setContentView(R.layout.activity_order_detail_vendor);
 
         getSupportActionBar().setTitle("Order Detail");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         progressBar=findViewById(R.id.progress);
         imageView=findViewById(R.id.imageView);
@@ -99,6 +101,11 @@ public class OrderDetailVendor extends AppCompatActivity {
 //            }
 //        });
 
+        if(order.getStatus().equals(Utilities.order_pending)){
+            confirmDispatch.setVisibility(View.VISIBLE);
+        }else{
+            confirmDispatch.setVisibility(View.GONE);
+        }
         confirmDispatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,7 +138,19 @@ public class OrderDetailVendor extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        startActivity(new Intent(OrderDetailVendor.this, ViewOrdersVendor.class).putExtra(Utilities.intent_store,store));
         finish();
-//        startActivity(new Intent(ProductDetail.this, ViewProducts.class));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                startActivity(new Intent(OrderDetailVendor.this, ViewOrdersVendor.class).putExtra(Utilities.intent_store,store));
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

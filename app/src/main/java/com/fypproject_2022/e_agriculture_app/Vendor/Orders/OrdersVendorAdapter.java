@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fypproject_2022.e_agriculture_app.Common.DatabaseHandler;
 import com.fypproject_2022.e_agriculture_app.Common.Utilities;
+import com.fypproject_2022.e_agriculture_app.Models.Store;
 import com.fypproject_2022.e_agriculture_app.Vendor.Common.MyVendorPreferences;
 import com.fypproject_2022.e_agriculture_app.Models.Order;
 import com.fypproject_2022.e_agriculture_app.Models.Product;
@@ -25,13 +26,15 @@ import java.util.List;
 public class OrdersVendorAdapter extends RecyclerView.Adapter<OrdersVendorAdapter.MyViewHolder> {
 
     Context context;
+    Store store;
     List<Product> productList;
     List<Order> orderList;
     DatabaseHandler databaseHandler;
     MyVendorPreferences mvp;
 
-    public OrdersVendorAdapter(Context context, List<Order> orderList, List<Product> productList) {
+    public OrdersVendorAdapter(Context context, Store store, List<Order> orderList, List<Product> productList) {
         this.context=context;
+        this.store=store;
         this.productList = productList;
         this.orderList = orderList;
         this.databaseHandler= new DatabaseHandler(context);
@@ -63,6 +66,7 @@ public class OrdersVendorAdapter extends RecyclerView.Adapter<OrdersVendorAdapte
                     Intent intent = new Intent(context, OrderDetailVendor.class);
                     intent.putExtra(Utilities.intent_product, product);
                     intent.putExtra(Utilities.intent_order, order);
+                    intent.putExtra(Utilities.intent_store,store);
                     context.startActivity(intent);
                 }
             });

@@ -2,6 +2,7 @@ package com.fypproject_2022.e_agriculture_app.Customer.Stores;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.fypproject_2022.e_agriculture_app.Common.DatabaseHandler;
 import com.fypproject_2022.e_agriculture_app.Common.Utilities;
+import com.fypproject_2022.e_agriculture_app.Customer.Products.ComparePrices;
 import com.fypproject_2022.e_agriculture_app.Customer.Products.ProductAdapter;
 import com.fypproject_2022.e_agriculture_app.Customer.Products.ViewProducts;
 import com.fypproject_2022.e_agriculture_app.Models.Product;
@@ -65,7 +67,7 @@ public class StoreDetail extends AppCompatActivity {
         progressBar = (ProgressBar)findViewById(R.id.progress);
 
         productListAll =new ArrayList<>();
-        recyclerViewProducts.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerViewProducts.setLayoutManager(new GridLayoutManager(StoreDetail.this,2));
 
         intent = getIntent();
         store= (Store) intent.getSerializableExtra(Utilities.intent_store);
@@ -108,7 +110,7 @@ public class StoreDetail extends AppCompatActivity {
         productList =new ArrayList<>();
         adapter= new ProductAdapter(StoreDetail.this, productList);
         recyclerViewProducts.setAdapter(adapter);
-        recyclerViewProducts.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerViewProducts.setLayoutManager(new GridLayoutManager(StoreDetail.this,2));
 
         for (Product product : productListAll) {
             productList.add(product);

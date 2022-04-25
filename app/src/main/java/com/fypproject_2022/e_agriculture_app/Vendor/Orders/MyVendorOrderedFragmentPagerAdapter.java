@@ -28,7 +28,6 @@ public class MyVendorOrderedFragmentPagerAdapter extends FragmentPagerAdapter {
                 return new NewOrdersFragment(store, context);
             case 1:
                 return new DispatchedOrdersFragment(store, context);
-
             case 2:
                 return new DeliveredOrdersFragment(store, context);
 

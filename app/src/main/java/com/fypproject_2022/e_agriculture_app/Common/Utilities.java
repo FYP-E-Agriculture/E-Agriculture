@@ -62,7 +62,6 @@ public class Utilities {
     public static final String order_complete = "Complete";
     public static final String order_pending = "Pending";
     public static final String order_dispatched = "Dispatched";
-    public static final String order_new = "New";
 
     /////--------------------UTILITY STRINGS------------------////////
     public static final String LOGIN = "LOGIN";

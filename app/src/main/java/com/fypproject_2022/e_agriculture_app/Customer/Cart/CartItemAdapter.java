@@ -105,9 +105,8 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.MyView
                                 databaseHandler.getOrdersReference().child(order.getId()).setValue(order);
 
                                 databaseHandler.getCartReference().child(cartItem.getId()).removeValue();
-                                cartItemList.remove(position);
-                                productList.remove(position);
                                 notifyDataSetChanged();
+                                context.startActivity(new Intent(context,CartActivity.class));
                             }
 
                             @Override
@@ -146,7 +145,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.MyView
                         if(task.isSuccessful()){
                             databaseHandler.getCartReference().child(cartItemList.get(position).getId()).removeValue();
                             Toast.makeText(context, "Product removed from cart", Toast.LENGTH_SHORT).show();
-//                            context.startActivity(new Intent(context,CartActivity.class));
+                            context.startActivity(new Intent(context,CartActivity.class));
                             notifyDataSetChanged();
                         }
                         else {

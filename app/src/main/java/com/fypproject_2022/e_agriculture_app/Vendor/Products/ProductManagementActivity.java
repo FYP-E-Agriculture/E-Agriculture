@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -79,7 +80,7 @@ public class ProductManagementActivity extends AppCompatActivity {
         store= (Store) intent.getSerializableExtra(Utilities.intent_store);
 
         productListAll =new ArrayList<>();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new GridLayoutManager(ProductManagementActivity.this,2));
         databaseHandler= new DatabaseHandler(this);
         mvp = new MyVendorPreferences(this);
         databaseHandler.getProductsReference().addListenerForSingleValueEvent(new ValueEventListener() {
@@ -186,7 +187,7 @@ public class ProductManagementActivity extends AppCompatActivity {
         adapter= new ProductAdapterVendor(ProductManagementActivity.this, productList, store);
         recyclerView.setAdapter(adapter);
 
-        if(radioButton.getText().toString().equals("No Filter")){
+        if(radioButton.getText().toString().equals("All")){
             for (Product product : productListAll) {
                 productList.add(product);
             }

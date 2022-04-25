@@ -6,6 +6,7 @@ import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -71,14 +72,14 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
-        CircleImageView imageView;
+        ImageView imageView;
         TextView name;
         TextView storeName;
         TextView price;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView=itemView.findViewById(R.id.imageView);
-            storeName=itemView.findViewById(R.id.store_name);
+            imageView=itemView.findViewById(R.id.image);
+            storeName=itemView.findViewById(R.id.product_store_name);
             name=itemView.findViewById(R.id.product_name);
             price=itemView.findViewById(R.id.product_price);
             cardView=itemView.findViewById(R.id.cardView);

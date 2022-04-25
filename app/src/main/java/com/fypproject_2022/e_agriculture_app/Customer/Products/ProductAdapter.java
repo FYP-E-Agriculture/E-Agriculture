@@ -66,7 +66,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         CardView cardView;
         TextView name;
         TextView storeName;
-        CircleImageView imageView;
+        ImageView imageView;
         TextView price;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);

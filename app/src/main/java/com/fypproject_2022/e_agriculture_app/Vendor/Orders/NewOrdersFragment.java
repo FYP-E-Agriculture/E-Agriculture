@@ -64,6 +64,8 @@ public class NewOrdersFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_orders_vendor, container, false);
 
+            System.out.println("STORE HERE:"+store.getName());
+
         progressBar=view.findViewById(R.id.progress);
         empty=view.findViewById(R.id.empty);
 
@@ -71,7 +73,7 @@ public class NewOrdersFragment extends Fragment {
         empty.setVisibility(View.INVISIBLE);
 
         recyclerView=view.findViewById(R.id.new_orders_recycler_view);
-        adapter= new OrdersVendorAdapter(this.getContext(), orderList, productList);
+        adapter= new OrdersVendorAdapter(this.getContext(), store, orderList, productList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(),LinearLayoutManager.VERTICAL, false));
 
@@ -80,10 +82,7 @@ public class NewOrdersFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot :dataSnapshot.getChildren()) {
                     Order order = snapshot.getValue(Order.class);
-                    System.out.println("Store ID 1:"+order.getStoreId());
-                    System.out.println("Store ID 2:"+store.getId());
                     if(order.getStoreId().equals(store.getId()) && order.getStatus().equals(Utilities.order_pending)){
-                        System.out.println("FOUND ONE");
                         orderList.add(order);
                         rowCount++;
                         adapter.notifyDataSetChanged();
@@ -128,4 +127,6 @@ public class NewOrdersFragment extends Fragment {
 
         return view;
     }
+
+
 }

@@ -47,7 +47,7 @@
                             android:checked="true"
                             android:contentDescription="No Filter Applied"
                             android:onClick="updateFromRadio"
-                            android:text="No Filter" />
+                            android:text="All" />
 
                         <RadioButton
                             android:id="@+id/fertilizer"
@@ -89,7 +89,8 @@
                     android:id="@+id/products_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/radio_buttons" />
+                    android:layout_below="@id/radio_buttons"
+                    android:padding="10dp"/>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fab"
